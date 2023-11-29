@@ -20,7 +20,7 @@ namespace Genshin_usm
 
         private void Out_put_Man_Load(object sender, EventArgs e)
         {
-           
+            this.label6.Text = "当前版本："+GlobalVar.VersionNo;
 
         }
 

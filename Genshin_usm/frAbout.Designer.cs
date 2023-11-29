@@ -38,6 +38,7 @@ namespace Genshin_usm
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,7 +64,7 @@ namespace Genshin_usm
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(97, 214);
+            this.label2.Location = new System.Drawing.Point(97, 210);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(251, 12);
             this.label2.TabIndex = 1;
@@ -72,7 +73,7 @@ namespace Genshin_usm
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(96, 240);
+            this.label3.Location = new System.Drawing.Point(96, 232);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(251, 12);
             this.label3.TabIndex = 1;
@@ -81,7 +82,7 @@ namespace Genshin_usm
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(96, 267);
+            this.label4.Location = new System.Drawing.Point(97, 276);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 12);
             this.label4.TabIndex = 1;
@@ -101,7 +102,7 @@ namespace Genshin_usm
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(96, 296);
+            this.label5.Location = new System.Drawing.Point(97, 298);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(167, 12);
             this.label5.TabIndex = 1;
@@ -110,13 +111,22 @@ namespace Genshin_usm
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(269, 296);
+            this.linkLabel2.Location = new System.Drawing.Point(270, 320);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(53, 12);
             this.linkLabel2.TabIndex = 3;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "点击这里";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(96, 254);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(77, 12);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "开发语言：C#";
             // 
             // frAbout
             // 
@@ -126,6 +136,7 @@ namespace Genshin_usm
             this.Controls.Add(this.linkLabel2);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label5);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -154,5 +165,6 @@ namespace Genshin_usm
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Label label6;
     }
 }

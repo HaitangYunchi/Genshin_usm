@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Genshin_usm
 {
@@ -18,6 +20,7 @@ namespace Genshin_usm
         /// </summary>
 
         public static string StrPath = System.Windows.Forms.Application.StartupPath;
+        public static string VersionNo= Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public static string AuthorName = "海棠云螭";
         public static string IniName = StrPath + "\\Config.ini";

@@ -27,6 +27,7 @@ namespace Genshin_usm
             textBox2.Text = GlobalVar.StrPath + @"\ffmpeg.exe";
             Class_Ini.writeString("Config", "Cutscenes", textBox1.Text, GlobalVar.IniName);
             Class_Ini.writeString("Config", "Ffmpegr", textBox2.Text, GlobalVar.IniName);
+            this.toolStripStatusLabel4.Text = GlobalVar.VersionNo;
         }
 
         private void button1_Click(object sender, EventArgs e)
