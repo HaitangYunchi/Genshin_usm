@@ -102,7 +102,7 @@ namespace Genshin_usm
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(97, 298);
+            this.label5.Location = new System.Drawing.Point(97, 320);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(167, 12);
             this.label5.TabIndex = 1;
