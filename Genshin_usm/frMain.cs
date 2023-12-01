@@ -157,7 +157,7 @@ namespace Genshin_usm
             else
             {
                 OpenFileDialog file = new OpenFileDialog();
-                file.Title = "选择 GI_Cutscenes";
+                file.Title = "选择 USM文件";
                 file.Filter = "USM文件（*.usm）|*.usm";
                 file.InitialDirectory = GlobalVar.Games_path + @"\YuanShen_Data\StreamingAssets\VideoAssets\StandaloneWindows64";
                 file.Multiselect = false;
