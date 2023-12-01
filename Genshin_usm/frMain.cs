@@ -204,9 +204,11 @@ namespace Genshin_usm
                 {
                     GlobalVar.USM_dir = GlobalVar.Games_path + @"\YuanShen_Data\StreamingAssets\VideoAssets\StandaloneWindows64";
                     GlobalVar.Command_cmd = "GICutscenes batchDemux " + "\"" +GlobalVar.USM_dir + "\"" + " -o " + "\""+GlobalVar.Output_path + "\"" + " -m  -e ffmpeg &exit";
+                    
                     frOut f = new frOut();
-                    f.Show();
-                   
+                    f.ShowDialog();
+
+
                 } 
                
             }
@@ -276,7 +278,8 @@ namespace Genshin_usm
                                     fi.Delete();
                                 }
                             }
-                            MessageBox.Show("转换完成", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            MessageBox.Show("导出完成！\n 打开导出目录查看！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Process.Start("explorer.exe", GlobalVar.Output_path);
                         }
 
                     }

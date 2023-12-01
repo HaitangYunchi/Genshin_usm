@@ -27,12 +27,12 @@ namespace Genshin_usm
 
         private void frOut_Load(object sender, EventArgs e)
         {
-            richTextBox1.SelectionStart = richTextBox1.TextLength;
-            richTextBox1.ScrollToCaret();
-            richTextBox1.Text += "-----------------------------------------" + "\n";
-            BatchDemuxe();
-  
             
+            richTextBox1.Text += "-----------------------------------------" + "\n";
+
+            BatchDemuxe();
+            
+
         }
         
          public void BatchDemuxe()
@@ -60,9 +60,14 @@ namespace Genshin_usm
             {
                 Control.CheckForIllegalCrossThreadCalls = false;      //允许不同线程之间可以互相调用
                 this.richTextBox1.Text += outLine.Data + Environment.NewLine;
+                richTextBox1.SelectionStart = richTextBox1.TextLength;
+                richTextBox1.ScrollToCaret();
             }
         }
 
-
+        private void frOut_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.Start("explorer.exe", GlobalVar.Output_path);
+        }
     }
 }
