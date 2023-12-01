@@ -53,7 +53,6 @@
             this.Name = "frOut";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " 输出";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frOut_FormClosing);
             this.Load += new System.EventHandler(this.frOut_Load);
             this.ResumeLayout(false);
 

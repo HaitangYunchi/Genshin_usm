@@ -63,30 +63,6 @@ namespace Genshin_usm
             }
         }
 
-        private void frOut_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                Process[] processes = Process.GetProcesses();
-                foreach (Process p in processes)
-                {
-                    if (p.ProcessName == "GICutscene")
-                    {
-                        p.Kill();
-                    }
-                    if (p.ProcessName == "ffmpeg")
-                    {
-                        p.Kill();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-        }
-
-
 
     }
 }

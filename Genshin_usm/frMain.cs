@@ -330,7 +330,7 @@ namespace Genshin_usm
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-           // Class_Cmd.Run("GICutscenes update &&exit");
+            Class_Cmd.ExeCommand("GICutscenes update &&exit");
             MessageBox.Show(GlobalVar.strOutput, GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -382,5 +382,7 @@ namespace Genshin_usm
                 }
             }
         }
+
+
     }
 }
