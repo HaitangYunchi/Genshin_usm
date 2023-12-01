@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 using System.IO;//
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Genshin_usm
 {
@@ -176,68 +179,117 @@ namespace Genshin_usm
         private void button6_Click(object sender, EventArgs e)
         {
 
-            ///导出
-            ///
+            //目录导出 目前只能导出国语
+            //
 
-            if (textBox1.Text == "")
+            if (checkBox1.Checked == true)
             {
-                MessageBox.Show("GICutscenes 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (textBox2.Text == "")
-            {
-                MessageBox.Show("Ffmpeg 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (textBox3.Text == "")
-            {
-                MessageBox.Show("输出目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (textBox4.Text == "")
-            {
-                MessageBox.Show("游戏目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else if (textBox5.Text == "")
-            {
-                MessageBox.Show("请选择要转换的文件！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-            else
-            {
-                if (radioButton1.Checked == true)
+                if (textBox1.Text == "")
                 {
-                    GlobalVar.Out_Language = "0";
+                    MessageBox.Show("GICutscenes 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else if (radioButton2.Checked == true)
+                else if (textBox2.Text == "")
                 {
-                    GlobalVar.Out_Language = "1";
+                    MessageBox.Show("Ffmpeg 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else if (radioButton3.Checked == true)
+                else if(textBox3.Text == "")
                 {
-                    GlobalVar.Out_Language = "2";
+                    MessageBox.Show("输出目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else if (radioButton4.Checked == true)
+                 else if (textBox4.Text == "")
                 {
-                    GlobalVar.Out_Language = "3";
+                    MessageBox.Show("游戏目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    GlobalVar.Out_Language = "0";
+                    GlobalVar.USM_dir = GlobalVar.Games_path + @"\YuanShen_Data\StreamingAssets\VideoAssets\StandaloneWindows64";
+                    GlobalVar.Command_cmd = "GICutscenes batchDemux " + "\"" +GlobalVar.USM_dir + "\"" + " -o " + "\""+GlobalVar.Output_path + "\"" + " -m  -e ffmpeg &exit";
+                    frOut f = new frOut();
+                    f.Show();
+                   
+                } 
+               
+            }
+            else
+            {
+                //单文件导出 可以导出不同配音
+                if (textBox1.Text == "")
+                {
+                    MessageBox.Show("GICutscenes 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (textBox2.Text == "")
+                {
+                    MessageBox.Show("Ffmpeg 程序不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (textBox3.Text == "")
+                {
+                    MessageBox.Show("输出目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (textBox4.Text == "")
+                {
+                    MessageBox.Show("游戏目录不能为空！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else if (textBox5.Text == "")
+                {
+                    MessageBox.Show("请选择要转换的文件！", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    if (radioButton1.Checked == true)
+                    {
+                        GlobalVar.Out_Language = "0";
+                    }
+                    else if (radioButton2.Checked == true)
+                    {
+                        GlobalVar.Out_Language = "1";
+                    }
+                    else if (radioButton3.Checked == true)
+                    {
+                        GlobalVar.Out_Language = "2";
+                    }
+                    else if (radioButton4.Checked == true)
+                    {
+                        GlobalVar.Out_Language = "3";
+                    }
+                    else
+                    {
+                        GlobalVar.Out_Language = "0";
+                    }
+
+                    Class_Ini.writeString("Config", "Language", GlobalVar.Out_Language, GlobalVar.IniName);
+                    // MessageBox.Show("选择的语言：" + GlobalVar.Out_Language);
+                    GlobalVar.Audio_Name = GlobalVar.Video_Name + "_" + GlobalVar.Out_Language + ".wav";
+                    GlobalVar.Command_cmd = "GICutscenes demuxUsm " + "\"" + GlobalVar.USM_Files + "\"" + " -o " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + " &&exit";
+                    GlobalVar.Command_mpeg = "ffmpeg -i " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Video_Name + ".ivf" + " -i " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Audio_Name + " -c:v copy -c:a copy " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Video_Name + "_" + GlobalVar.Out_Language + ".mkv &&exit";
+                    Class_Cmd.ExeCommand(GlobalVar.Command_cmd);
+                    Class_Cmd.ExeCommand(GlobalVar.Command_mpeg);
+                    try
+                    {
+                        DirectoryInfo di = new DirectoryInfo(GlobalVar.Output_path + "\\" + GlobalVar.Video_Name);
+                        FileInfo[] dii = di.GetFiles();
+                        if (dii.Length != 0)
+                        {
+                            foreach (FileInfo fi in dii)
+                            {
+                                if (fi.Extension == ".ivf" || fi.Extension == ".hca" || fi.Extension == ".wav")
+                                {
+                                    fi.Delete();
+                                }
+                            }
+                            MessageBox.Show("转换完成", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
+                    }
+                    catch
+                    {
+                        //MessageBox.Show("删除失败", GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+
                 }
 
-                Class_Ini.writeString("Config", "Language", GlobalVar.Out_Language, GlobalVar.IniName);
-                // MessageBox.Show("选择的语言：" + GlobalVar.Out_Language);
-                GlobalVar.Audio_Name = GlobalVar.Video_Name + "_" + GlobalVar.Out_Language + ".wav";
-                GlobalVar.Command_cmd = "GICutscenes demuxUsm " + "\"" + GlobalVar.USM_Files + "\"" + " -o " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name;
-                GlobalVar.Command_mpeg = "ffmpeg -i " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Video_Name + ".ivf" + " -i " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Audio_Name + " -c:v copy -c:a copy " + GlobalVar.Output_path + "\\" + GlobalVar.Video_Name + "\\" + GlobalVar.Video_Name + "_" + GlobalVar.Out_Language + ".mp4 &&exit";
-
-                //MessageBox.Show(GlobalVar.Command_cmd);
-
-                Class_Cmd.ExeCommand(GlobalVar.Command_cmd);
-                MessageBox.Show(GlobalVar.strOutput, GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Class_Cmd.ExeCommand(GlobalVar.Command_mpeg);
 
             }
-
-
-
         }
 
 
@@ -278,7 +330,7 @@ namespace Genshin_usm
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Class_Cmd.ExeCommand("GICutscenes update &&exit");
+           // Class_Cmd.Run("GICutscenes update &&exit");
             MessageBox.Show(GlobalVar.strOutput, GlobalVar.AuthorName, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -286,6 +338,49 @@ namespace Genshin_usm
         {
             frAbout f = new frAbout();
             f.ShowDialog();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                GlobalVar.Outdir = "1";
+                button5.Enabled = false;
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
+                radioButton3.Enabled = false;
+                radioButton4.Enabled = false;
+                button6.Text = "国语配音";
+            }
+            else
+            {
+                GlobalVar.Outdir = "0";
+                button5.Enabled = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
+                radioButton3.Enabled = true;
+                radioButton4.Enabled = true;
+                if (radioButton1.Checked == true)
+                {
+                    button6.Text = "国语配音";
+                }
+                else if (radioButton2.Checked == true)
+                {
+                    button6.Text = "英语配音";
+                }
+                else if (radioButton3.Checked == true)
+                {
+                    button6.Text = "日语配音";
+                }
+                else if (radioButton4.Checked == true)
+                {
+                    button6.Text = "韩语配音";
+                }
+                else
+                {
+                    button6.Text = "国语配音";
+                }
+            }
         }
     }
 }

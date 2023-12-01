@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Reflection;
+using System.IO;
 
 namespace Genshin_usm
 {
@@ -18,9 +19,13 @@ namespace Genshin_usm
         /// <summary>
         /// <param name="StrPath">项目运行目录</param>
         /// </summary>
-
+        public static string tempFolderPath = Path.GetTempPath();
         public static string StrPath = System.Windows.Forms.Application.StartupPath;
         public static string VersionNo= Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string USM_dir = "";
+        public static string line = "";
+        public static string Outdir = "0";
+
 
         public static string AuthorName = "海棠云螭";
         public static string IniName = StrPath + "\\Config.ini";

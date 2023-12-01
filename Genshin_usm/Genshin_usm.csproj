@@ -70,6 +70,12 @@
   <ItemGroup>
     <Compile Include="Class_Cmd.cs" />
     <Compile Include="Class_Ini.cs" />
+    <Compile Include="frOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frOut.Designer.cs">
+      <DependentUpon>frOut.cs</DependentUpon>
+    </Compile>
     <Compile Include="frAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frOut.resx">
+      <DependentUpon>frOut.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frAbout.resx">
       <DependentUpon>frAbout.cs</DependentUpon>
     </EmbeddedResource>
